@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "antlr4": "^4.13.1-patch-1",
     "typescript": "^5.4.2"
-  }
+  },
+  "type": "module"
 }
