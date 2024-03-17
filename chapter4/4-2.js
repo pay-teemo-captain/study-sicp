@@ -1,5 +1,7 @@
 // SICP JS 4.2.2
-import {list} from "./common.js"
+import { display, head, list, tail, parse, pair, is_null, error, math_abs, map, math_PI, math_E, append, length, is_pair, list_ref, apply_in_underlying_javascript, stringify, set_head } from 'sicp';
+import {question as prompt} from "readline-sync";
+
 
 function evaluate(component, env) {
     return is_literal(component)
@@ -39,9 +41,6 @@ function list_of_arg_values(exps, env) {
     return map(exp => actual_value(exp, env), exps);
 }
 
-function list_of_delayed_args(exps, env) {
-    return map(exp => delay_it(exp, env), exps);
-}
 
 function apply(fun, args, env) {
     if (is_primitive_function(fun)) {
@@ -73,10 +72,10 @@ function eval_sequence(stmts, env) {
     if (is_empty_sequence(stmts)) {
         return undefined;
     } else if (is_last_statement(stmts)) {
-        return evaluate(first_statement(stmts), env);
+        return evaluate(first_statement(stmts), env); // <--
     } else {
         const first_stmt_value =
-            evaluate(first_statement(stmts), env);
+            evaluate(first_statement(stmts), env); // <--
         if (is_return_value(first_stmt_value)) {
             return first_stmt_value;
         } else {
@@ -516,9 +515,9 @@ const primitive_functions = list(
     list("pair", pair),
     list("list", list),
     list("is_null", is_null),
-    list("display", display),
-    list("error", error),
-    list("math_abs", math_abs),
+    list("display", console.log),
+    list("error", console.log),
+    list("math_abs", x => x > 0 ? x : -x),
     list("+", (x, y) => x + y),
     list("-", (x, y) => x - y),
     list("-unary", x => -x),
@@ -541,8 +540,8 @@ const primitive_function_objects =
 
 const primitive_constants = list(list("undefined", undefined),
     list("Infinity", Infinity),
-    list("math_PI", math_PI),
-    list("math_E", math_E),
+    list("math_PI", 3.14),
+    list("math_E", 2.7),
     list("NaN", NaN)
 );
 const primitive_constant_symbols =
@@ -577,7 +576,7 @@ function to_string(object) {
 }
 
 function user_print(prompt_string, object) {
-    display("----------------------------",
+    console.log("----------------------------",
         prompt_string + "\n" + to_string(object) + "\n");
 }
 
@@ -591,9 +590,9 @@ const output_prompt = "L-evaluate value: ";
 function driver_loop(env) {
     const input = user_read(input_prompt);
     if (is_null(input)) {
-        display("--- evaluator terminated ---", "");
+        console.log("--- evaluator terminated ---", "");
     } else {
-        display("----------------------------",
+        console.log("----------------------------",
             input_prompt + "\n" + input + "\n");
         const program = parse(input);
         const locals = scan_out_declarations(program);
