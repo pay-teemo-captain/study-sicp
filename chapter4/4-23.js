@@ -6,12 +6,18 @@ function factorial(n) {
     console.log(`factorial ${n}`)
     return unless(n > 1, n * factorial(n - 1), 1)
 }
-
+//
 factorial(5)
 // 5 * factorial(4)
 // 4 * factorial(3)
 // 3 * factorial(2)
 // 2 * factorial(1)
 // 1 * factorial(0) <- 여기도 평가되어 버린다.
-
-
+//
+// let count = 0;
+// function id(x) {
+//     count = count + 1;
+//     return x;
+// }
+// function square(x) {return x * x;}
+// square(id(10));

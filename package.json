@@ -13,5 +13,10 @@
     "antlr4": "^4.13.1-patch-1",
     "typescript": "^5.4.2"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "prompt-sync": "^4.2.0",
+    "readline-sync": "^1.4.10",
+    "sicp": "^1.1.4"
+  }
 }
