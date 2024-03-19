@@ -530,7 +530,8 @@ const primitive_functions = list(
     list("<=", (x, y) => x <= y),
     list(">", (x, y) => x > y),
     list(">=", (x, y) => x >= y),
-    list("!", x => !x)
+    list("!", x => !x),
+    list("map", map) // 연습문네 4.14
 );
 const primitive_function_symbols =
     map(head, primitive_functions);
